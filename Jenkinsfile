@@ -23,7 +23,7 @@ pipeline {
       stage('Semgrep-Scan') {
         steps {
           sh 'pip3 install semgrep'
-          sh 'semgrep ci -oss-only'
+          sh 'semgrep ci --oss-only --verbose'
       }
     }
   }
