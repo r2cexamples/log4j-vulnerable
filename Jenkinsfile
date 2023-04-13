@@ -1,13 +1,16 @@
 pipeline {
   agent {
-        docker { image 'python:3' }
-        environment {
+        docker { 
+          image 'python:3.9.16-bullseye' 
+          args '-e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN' 
+        }
+        //environment {
           // The following variable is required for a Semgrep App-connected scan:
-          SEMGREP_APP_TOKEN = credentials('SEMGREP_APP_TOKEN')
+          //SEMGREP_APP_TOKEN = credentials('SEMGREP_APP_TOKEN')
 
           // Uncomment the following line to scan changed 
           // files in PRs or MRs (diff-aware scanning): 
-          SEMGREP_BASELINE_REF = 'remotes/origin/main'
+          //SEMGREP_BASELINE_REF = 'remotes/origin/main'
 
           // Troubleshooting:
 
@@ -19,7 +22,7 @@ pipeline {
           // SEMGREP_REPO_NAME = env.GIT_URL.replaceFirst(/^https:\/\/github.com\/(.*).git$/, '$1')
           // SEMGREP_REPO_URL = env.GIT_URL.replaceFirst(/^(.*).git$/,'$1')
           // SEMGREP_PR_ID = "${env.CHANGE_ID}"
-        }
+        //}
     }
     stages {
       stage('Test') {
