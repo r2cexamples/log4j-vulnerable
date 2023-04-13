@@ -1,7 +1,7 @@
 pipeline {
   agent {
         docker { 
-          image 'python:3.9.16-bullseye' 
+          image 'returntocorp/semgrep' 
           args '-e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN' 
         }
         //environment {
@@ -25,14 +25,8 @@ pipeline {
         //}
     }
     stages {
-      stage('Test') {
-            steps {
-                sh 'pip3 --version'
-            }
-      }
       stage('Semgrep-Scan') {
         steps {
-          sh 'pip3 install semgrep'
           sh 'semgrep ci --oss-only --verbose'
         }
       }
